@@ -21,7 +21,6 @@ public class InterceptorRecorder {
     private Long timeTaken_ms;
     private String createdAt;
 
-
     public InterceptorRecorder(){
         this.Id = UUID.randomUUID().toString();
         this.createdAt = String.valueOf(LocalDateTime.now());

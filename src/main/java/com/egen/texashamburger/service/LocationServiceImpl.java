@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LocationServiceImpl implements LocationService{
 
@@ -29,5 +31,15 @@ public class LocationServiceImpl implements LocationService{
             throw new LocationServiceException("Internal Server Error",e);
         }
         return true;
+    }
+
+    @Override
+    public List<Location> getAllLocations() {
+        try{
+            return locationRepository.findAll();
+        }
+        catch (Exception e){
+            throw new LocationServiceException("Internal Server Error",e);
+        }
     }
 }

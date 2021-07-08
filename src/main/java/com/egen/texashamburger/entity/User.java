@@ -2,11 +2,8 @@ package com.egen.texashamburger.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.time.Instant;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -16,19 +13,17 @@ public class User {
     @GeneratedValue
     private int userId;
 
+    @Column(unique = true)
     private String username;
+
     private String password;
+
+    @Column(unique = true)
     private String email;
-    private Instant createdAt;
+
+    private String createdAt;
 
     public User(){
-
-    }
-
-    public User(String username, String password, String email) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.createdAt = Instant.now();
+        this.createdAt = String.valueOf(LocalDateTime.now());
     }
 }

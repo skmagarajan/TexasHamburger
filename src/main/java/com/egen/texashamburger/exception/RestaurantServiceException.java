@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RestaurantServiceException extends RuntimeException {
     public static final long serialVersionUID = 1L;
+    public RestaurantServiceException(String message) {
+        super(message);
+    }
     public RestaurantServiceException(String message, Throwable cause) {
         super(message, cause);
     }

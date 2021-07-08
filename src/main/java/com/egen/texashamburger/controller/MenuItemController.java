@@ -2,6 +2,8 @@ package com.egen.texashamburger.controller;
 
 import com.egen.texashamburger.dto.MenuItemDTO;
 import com.egen.texashamburger.entity.MenuItem;
+import com.egen.texashamburger.enums.MenuCategory;
+import com.egen.texashamburger.exception.MenuServiceException;
 import com.egen.texashamburger.response.Response;
 import com.egen.texashamburger.response.ResponseMetadata;
 import com.egen.texashamburger.response.StatusMessage;
@@ -9,9 +11,12 @@ import com.egen.texashamburger.service.MenuItemService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.yaml.snakeyaml.util.EnumUtils;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/menuItem")
@@ -44,7 +49,7 @@ public class MenuItemController {
     }
 
 
-    @GetMapping(value="/all",produces = "application/json")
+    @GetMapping(value="/getAll",produces = "application/json")
     public Response<List<MenuItem>> getAllMenus(){
         return Response.<List<MenuItem>>builder()
                 .meta(ResponseMetadata.builder()
@@ -56,6 +61,9 @@ public class MenuItemController {
 
     @GetMapping(value="/category/{category}",produces = "application/json")
     public Response<List<MenuItem>> getAllMenusByCategory(@PathVariable String category){
+        if(!Arrays.stream(MenuCategory.values()).anyMatch((t) -> t.name().equals(category))){
+            throw new MenuServiceException("Request Parameter Missing");
+        }
         return Response.<List<MenuItem>>builder()
                 .meta(ResponseMetadata.builder()
                         .statusCode(200)
@@ -81,6 +89,16 @@ public class MenuItemController {
                         .statusCode(200)
                         .statusMessage(StatusMessage.SUCCESS.name()).build())
                 .data((menuItemService.removeMenuItemByName(menuItemName)))
+                .build();
+    }
+
+    @GetMapping(value="/getAll/{page}/{size}",produces = "application/json")
+    public Response<Map<String, Object>> getAllByPageSize(@PathVariable int page, @PathVariable int size){
+        return Response.<Map<String, Object>>builder()
+                .meta(ResponseMetadata.builder()
+                        .statusCode(200)
+                        .statusMessage(StatusMessage.SUCCESS.name()).build())
+                .data((menuItemService.getAllByPageSize(page,size)))
                 .build();
     }
 }

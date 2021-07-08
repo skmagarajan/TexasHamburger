@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 public class MenuServiceException extends  RuntimeException {
     public static final long serialVersionUID = 1L;
 
+    public MenuServiceException(String message) {
+        super(message);
+    }
     public MenuServiceException(String message, Throwable cause) {
         super(message, cause);
     }

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LocationServiceException extends RuntimeException{
     public static final long serialVersionUID = 1L;
-
+    public LocationServiceException(String message) {
+        super(message);
+    }
     public LocationServiceException(String message, Throwable cause) {
         super(message, cause);
     }

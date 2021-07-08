@@ -7,10 +7,16 @@ import com.egen.texashamburger.repository.MenuItemRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @NoArgsConstructor
@@ -76,6 +82,27 @@ public class MenuItemServiceImpl implements MenuItemService {
             if(menuItem.size() == 1)
                 menuItemRepository.removeMenuItemsByName(menuItemName);
             return "Removed Successfully";
+        } catch (Exception e) {
+            throw new MenuServiceException("MenuItem Not Found", e);
+        }
+    }
+
+    @Override
+    public Map<String, Object> getAllByPageSize(int page, int size) {
+        try {
+            List<MenuItem> menuItems = new ArrayList<MenuItem>();
+            Pageable paging = PageRequest.of(page-1,size);
+
+            Page<MenuItem> pageMenuItem = menuItemRepository.findAll(paging);
+            menuItems = pageMenuItem.getContent();
+            Map<String, Object> response = new HashMap<>();
+
+                response.put("Items", menuItems);
+                response.put("currentPage", pageMenuItem.getNumber()+1);
+                response.put("totalItems", pageMenuItem.getTotalElements());
+                response.put("totalPages", pageMenuItem.getTotalPages());
+
+            return response;
         } catch (Exception e) {
             throw new MenuServiceException("MenuItem Not Found", e);
         }

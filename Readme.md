@@ -4,3 +4,5 @@
 Used MongoDB and PostgresDB
 * MongoDB for maintaining Orders and MenuItems
 * Postgres used for Interceptor REST APIs Execution Time and admin user table - auth
+* Backend OrderAmount Calculation
+* Added ExceptionHandler with message
