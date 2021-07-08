@@ -17,9 +17,10 @@ import java.util.List;
 @NoArgsConstructor
 public class LocationController {
 
-    @Autowired
+
     private LocationService locationService;
 
+    @Autowired
     public LocationController(LocationService locationService){
         this.locationService = locationService;
     }

@@ -18,6 +18,7 @@ public class TexasHamburgerApplication {
         SpringApplication.run(TexasHamburgerApplication.class, args);
     }
 
+    //Swagger
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2).select()

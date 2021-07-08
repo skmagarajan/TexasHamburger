@@ -23,9 +23,10 @@ import java.util.Map;
 @NoArgsConstructor
 public class MenuItemController {
 
-    @Autowired
+
     private MenuItemService menuItemService;
 
+    @Autowired
     public MenuItemController(MenuItemService menuItemService){
         this.menuItemService = menuItemService;
     }
@@ -62,7 +63,7 @@ public class MenuItemController {
     @GetMapping(value="/category/{category}",produces = "application/json")
     public Response<List<MenuItem>> getAllMenusByCategory(@PathVariable String category){
         if(!Arrays.stream(MenuCategory.values()).anyMatch((t) -> t.name().equals(category))){
-            throw new MenuServiceException("Request Parameter Missing");
+            throw new MenuServiceException("Check Request Parameter");
         }
         return Response.<List<MenuItem>>builder()
                 .meta(ResponseMetadata.builder()

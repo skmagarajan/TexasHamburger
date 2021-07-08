@@ -4,6 +4,7 @@ import com.egen.texashamburger.dto.UserDTO;
 import com.egen.texashamburger.response.Response;
 import com.egen.texashamburger.response.ResponseMetadata;
 import com.egen.texashamburger.response.StatusMessage;
+import com.egen.texashamburger.service.InterceptorService;
 import com.egen.texashamburger.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +13,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AdminController {
 
-    @Autowired
     UserService userService;
+
+    @Autowired
+    public AdminController(UserService userService){
+        this.userService = userService;
+    }
 
     @PostMapping("/admin/add")
     public Response<String> addUser(@RequestBody UserDTO user){
