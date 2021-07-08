@@ -7,4 +7,6 @@ import java.util.List;
 public interface InterceptorService {
     void create(InterceptorRecorder interceptorRecorder);
     List<InterceptorRecorder> getAll();
+    List<InterceptorRecorder> getByControllerName(String controllerName);
+    List<InterceptorRecorder> getByDate(String date);
 }

@@ -19,11 +19,11 @@ public class InterceptorRecorder {
     private String startTime;
     private String endTime;
     private Long timeTaken_ms;
-    private LocalDateTime createdAt;
+    private String createdAt;
 
 
     public InterceptorRecorder(){
         this.Id = UUID.randomUUID().toString();
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = String.valueOf(LocalDateTime.now());
     }
 }
